@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1 class="userName"></h1>
+    <h2 class="userAge"></h2>
+  
+    <input type="text" class="name" placeholder="Enter name here"/>
+    <button class="saveNameBtn">Save Name</button>
+  
+    <br />
+  
+    <input type="text" class="age" placeholder="Enter age here"/>
+    <button class="saveAgeBtn">Save Age</button>
+
+    <script>
+
+        // Working with localStorage
+
+        // Storing data in localStorage
+
+        localStorage.setItem("color", "Red");
+
+        // Reading data from localStorage
+        localStorage.getItem("color");
+
+        // How to Store and Read Complex Data Values in Local Storage
+
+        const userObj = {
+            username: "Maria",
+            email: "maria@mail.com"
+        }
+
+        localStorage.setItem('user', JSON.stringify(userObj));
+
+        const storedUserDate = localStorage.getItem('user');
+
+        if (storedUserDate) {
+            const userData = JSON.parse(storedUserDate);
+        } else {
+            console.log("User data not found in local storage");
+        }
+
+        //
+        const userNameText = document.querySelector(".userName");
+        const userAgeText = document.querySelector(".userAge");
+
+        const saveNameButton = document.querySelector(".saveNameBtn");
+        const saveAgeButton = document.querySelector(".saveAgeBtn");
+
+        saveNameButton.addEventListener("click", () => {
+            const userName = document.querySelector(".name").value.trim();
+            userNameText.textContent = userName;
+            localStorage.setItem("name", userName);
+        });
+
+        saveAgeButton.addEventListener("click", () => {
+        const userAge = document.querySelector(".age").value.trim();
+        userAgeText.textContent = userAge;
+        sessionStorage.setItem("age", userAge);
+        });
+
+        
+
+        const displayUserName = () => {
+            const nameFromLocalStorage = localStorage.getItem("name");
+
+            if (nameFromLocalStorage) {
+                userNameText.textContent = nameFromLocalStorage;
+            } else {
+                userNameText.textContent = "No name data in Local storage";
+            }
+        }
+
+        const displayUserAge = () => {
+            const ageFromSessionStorage = sessionStorage.getItem("age");
+
+            if (ageFromSessionStorage) {
+                userAgeText.textContent = ageFromSessionStorage;
+            } else {
+                userAgeText.textContent = "No age data in session storage";
+            }
+        }
+
+        displayUserName();
+        displayUserAge();
+    </script>
+</body>
+</html>
